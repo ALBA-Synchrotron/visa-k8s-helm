@@ -21,7 +21,7 @@ To install both the controller and the web cloud provider with the release name 
 ```bash
 helm repo add alba-synchrotron https://alba-synchrotron.github.io/visa-k8s-helm
 helm repo update
-helm install visa-k8s alba-synchrotron/visa-k8s-controller --namespace visa-system --create-namespace
+helm install visa-k8s alba-synchrotron/visa-k8s-provider --namespace visa-system --create-namespace
 ```
 
 Or from local sources:
