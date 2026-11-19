@@ -17,13 +17,13 @@ webhooks:
     rules:
       - apiGroups: [ "" ]
         apiVersions: [ "v1" ]
-        operations: [ "CREATE", "UPDATE" ]
+        operations: [ "CREATE"]
         resources: [ "pods" ]
         scope: "Namespaced"
     namespaceSelector:
       matchExpressions:
         - key: kubernetes.io/metadata.name
-          operator: NotIn
+          operator: In
           values: {{.Values.mutatingAdmissionWebhook.namespaces | toJson }}
         - key: webhook-ignore
           operator: DoesNotExist

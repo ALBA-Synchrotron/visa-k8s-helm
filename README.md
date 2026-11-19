@@ -4,7 +4,7 @@ A production-ready Helm chart for deploying the [VISA Kubernetes Cloud Provider 
 
 * **Controller**: Manages and reconciles custom resources under the `cloudprovider.visa.k8s` API group (VISA instances, cloud devices, flavours, images, security groups, and sidecar configs) within Kubernetes.
 * **Web Cloud Provider**: A REST API service implementing the cloud provider backend for the VISA platform on top of Kubernetes, translating VISA API operations into custom resources.
-* **Mutating Admission Webhook**: A [dynamic admission control](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) endpoint that applies.
+* **Mutating Admission Webhook**: A [dynamic admission control](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) endpoint that applies per-instance configuration (storage mounts, environment variables, groups and user provisioning) to VISA runtime pods at creation time.
 
 The controller and web cloud provider can be deployed together or independently using `controller.enabled` and `webCloudProvider.enabled`.
 
