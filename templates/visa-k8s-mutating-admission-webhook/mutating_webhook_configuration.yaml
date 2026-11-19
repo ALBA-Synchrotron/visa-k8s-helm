@@ -1,6 +1,6 @@
 {{- if .Values.mutatingAdmissionWebhook.enabled -}}
 apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingWebhookConfiguration
+kind: MutatingWebhookConfiguration
 metadata:
   name: {{ include "visa-k8s-mutating-admission-webhook.fullname" . }}
   labels:
