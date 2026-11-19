@@ -230,6 +230,33 @@
         }
       }
     },
+    "mutatingAdmissionWebhook": {
+      "type": "object",
+      "description": "Mutating admission webhook configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable or disable the mutating admission webhook."
+        },
+        "fullnameOverride": {
+          "type": "string",
+          "description": "Override the fully qualified name of the mutating admission webhook resources."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the endpoint that receives mutation requests."
+        },
+        "namespaces": {
+          "type": "array",
+          "description": "Namespaces the mutating webhook applies to.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "replicaCount": {
       "type": "integer",
       "minimum": 0,

@@ -1,0 +1,33 @@
+{{- if .Values.mutatingAdmissionWebhook.enabled -}}
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "visa-k8s-mutating-admission-webhook.fullname" . }}
+  labels:
+    {{- include "visa-k8s-mutating-admission-webhook.labels" . | nindent 4 }}
+webhooks:
+  - name: visa-k8s.admission.webhook
+    admissionReviewVersions: [ "v1" ]
+    sideEffects: None
+    failurePolicy: Ignore          # switch to Fail once it's proven stable
+    timeoutSeconds: 10
+    matchPolicy: Equivalent
+    clientConfig:
+      url: {{.Values.mutatingAdmissionWebhook.url}}
+    rules:
+      - apiGroups: [ "" ]
+        apiVersions: [ "v1" ]
+        operations: [ "CREATE", "UPDATE" ]
+        resources: [ "pods" ]
+        scope: "Namespaced"
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values: {{.Values.mutatingAdmissionWebhook.namespaces | toJson }}
+        - key: webhook-ignore
+          operator: DoesNotExist
+    objectSelector:
+      matchLabels:
+        cloudprovider.visa.k8s/managed: "true"
+{{- end -}}

@@ -139,3 +139,24 @@ Get the ConfigMap name for the web cloud provider
 {{- printf "%s-config" (include "visa-k8s-web-cloud-provider.fullname" .) }}
 {{- end }}
 {{- end }}
+
+{{- define "visa-k8s-mutating-admission-webhook.fullname" -}}
+{{- if .Values.mutatingAdmissionWebhook.fullnameOverride }}
+{{- .Values.webCloudProvider.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default "visa-k8s-mutating-admission-webhook" .Values.webCloudProvider.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- define "visa-k8s-mutating-admission-webhook.labels" -}}
+helm.sh/chart: {{ include "visa-k8s-controller.chart" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}

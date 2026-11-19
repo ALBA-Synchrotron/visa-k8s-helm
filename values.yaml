@@ -358,3 +358,11 @@ webCloudProvider:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+
+# Mutating admission webhook configuration
+mutatingAdmissionWebhook:
+  enabled: false
+  fullnameOverride: ""
+  url: "https://some.thing/v1/api/mutate"
+  namespaces:
+    - "visa-pod-test"
